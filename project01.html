@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockMarketPro</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* ===== Global Styles ===== */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d1117;
+      color: #e6edf3;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: #161b22;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar h1 {
+      color: #58a6ff;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .navbar li a:hover {
+      color: #58a6ff;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      padding: 4rem 10%;
+    }
+
+    .hero-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #58a6ff;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      background: #58a6ff;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: #1f6feb;
+    }
+
+    /* ===== Live Ticker ===== */
+    .ticker {
+      background: #161b22;
+      padding: 0.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    .ticker p {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 15s linear infinite;
+      color: #58a6ff;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ===== Chart Section ===== */
+    .charts {
+      padding: 3rem 10%;
+      text-align: center;
+    }
+
+    .charts h2 {
+      margin-bottom: 2rem;
+      color: #58a6ff;
+    }
+
+    .chart-container {
+      background: #161b22;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    /* ===== Info Section ===== */
+    .info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 3rem 10%;
+      align-items: center;
+    }
+
+    .info h3 {
+      color: #58a6ff;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: #161b22;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+      color: #8b949e;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .hero, .info {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>StockMarketPro</h1>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#charts">Live Data</a></li>
+      <li><a href="#info">Insights</a></li>
+      <li><a href="#footer">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h2>Stay Ahead in the Market</h2>
+      <p>Track live stock prices, analyze trends with interactive charts, and make informed investment decisions.  
+      Designed for traders, investors, and finance enthusiasts.</p>
+      <button class="btn">Get Started</button>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1569025690938-a00729c9e1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Stock Market">
+    </div>
+  </section>
+
+  <!-- Stock Ticker -->
+  <div class="ticker">
+    <p>📈 AAPL: $190.12 ▲ | TSLA: $245.30 ▼ | AMZN: $138.76 ▲ | MSFT: $322.10 ▲ | BTC: $62,450 ▼</p>
+  </div>
+
+  <!-- Charts -->
+  <section class="charts" id="charts">
+    <h2>Live Stock Trends</h2>
+    <div class="chart-container">
+      <canvas id="stockChart"></canvas>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="info" id="info">
+    <div>
+      <h3>Why Choose StockMarketPro?</h3>
+      <p>We provide real-time data visualization, AI-driven insights, and financial tools to empower your trading journey. Whether you are a beginner or a pro investor, our platform is built to guide you.</p>
+    </div>
+    <div>
+      <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Finance Data">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <p>© 2025 StockMarketPro. All rights reserved.</p>
+  </footer>
+
+  <!-- Chart Script -->
+  <script>
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    const stockChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [{
+          label: 'AAPL Stock',
+          data: [185, 188, 190, 187, 192],
+          borderColor: '#58a6ff',
+          backgroundColor: 'rgba(88,166,255,0.2)',
+          tension: 0.4,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#e6edf3' } }
+        },
+        scales: {
+          x: { ticks: { color: '#e6edf3' } },
+          y: { ticks: { color: '#e6edf3' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
